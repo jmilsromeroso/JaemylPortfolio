@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+// 1. Import EmailJS (Make sure to install via: npm install @emailjs/browser)
+import emailjs from '@emailjs/browser';
 
 // ── Configuration Data ────────────────────────────────
 const NAV_LINKS = ["Home", "Objective", "Information", "Project", "Contact"];
@@ -100,7 +102,6 @@ function Navbar({ active, setActive }) {
 
   const handleClick = (link) => {
     setActive(link);
-    // Standard anchor behavior works with scroll-behavior: smooth in CSS
   };
 
   return (
@@ -324,14 +325,40 @@ function Projects() {
 
 function Contact() {
   const [ref, inView] = useInView();
-  const [formData, setFormData] = useState({ name: "", email: "", contactNo: "", message: "" });
+  // ── EmailJS Integration Starts ──
+  const formRef = useRef();
+  const [status, setStatus] = useState("idle"); 
+  const [formData, setFormData] = useState({ from_name: "", from_email: "", contact_number: "", message: "" });
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
-  const handleSubmit = (e) => { e.preventDefault(); console.log(formData); alert("Message Sent!"); };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setStatus("sending");
+
+    emailjs.sendForm(
+      "service_c6eorns",   // REPLACE WITH YOUR SERVICE ID
+      "template_238hl3h",  // REPLACE WITH YOUR TEMPLATE ID
+      formRef.current,
+      "glLkwlsKB41KqEJNE"      // REPLACE WITH YOUR PUBLIC KEY
+    )
+    .then(() => {
+      setStatus("success");
+      setFormData({ from_name: "", from_email: "", contact_number: "", message: "" });
+      setTimeout(() => setStatus("idle"), 5000);
+    })
+    .catch((error) => {
+      console.error("EmailJS Error:", error);
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 5000);
+    });
+  };
+  // ── EmailJS Integration Ends ──
 
   const inputStyle = {
     background: "rgba(255,255,255,0.05)", border: "1px solid rgba(92,111,245,0.3)",
-    padding: "1rem", color: "#fff", borderRadius: 8, fontFamily: "'DM Sans', sans-serif", outline: "none"
+    padding: "1rem", color: "#fff", borderRadius: 8, fontFamily: "'DM Sans', sans-serif", outline: "none",
+    width: "100%", marginBottom: "1rem", boxSizing: "border-box"
   };
 
   const cvButtonStyle = {
@@ -361,23 +388,33 @@ function Contact() {
             <p style={{ fontFamily: "'DM Sans', sans-serif", color: "#fff", marginBottom: "0.8rem" }}>Address: 18 Bagong Sikat, Bagong Barrio, Caloocan City</p>
             <p style={{ fontFamily: "'DM Sans', sans-serif", color: "#fff", marginBottom: "0.8rem" }}>Contact: 09150681652</p>
             
-            <a 
-              href="https://drive.google.com/file/d/1RzKhUfuxsJRxwlUiMUBCdB_IHW_HUxn0/view?usp=sharing" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="cv-btn"
-              style={cvButtonStyle}
-            >
+            <a href="https://drive.google.com/file/d/1RzKhUfuxsJRxwlUiMUBCdB_IHW_HUxn0/view?usp=sharing" target="_blank" rel="noopener noreferrer" style={cvButtonStyle}>
               VIEW CV
             </a>
           </div>
-          <div style={{ background: "rgba(255,255,255,0.03)", padding: "2rem", borderRadius: 12, border: "1px solid rgba(92,111,245,0.2)" }}>
-            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-               <input name="name" type="text" placeholder="FULL NAME" required style={inputStyle} onChange={handleChange} />
-               <input name="email" type="email" placeholder="EMAIL ADDRESS" required style={inputStyle} onChange={handleChange} />
-               <input name="contactNo" type="tel" placeholder="CONTACT NO." style={inputStyle} onChange={handleChange} />
-               <textarea name="message" placeholder="MESSAGE" rows={4} required style={{ ...inputStyle, resize: "none" }} onChange={handleChange} />
-               <button type="submit" style={{ background: "#5c6ff5", color: "#fff", border: "none", padding: "1rem", borderRadius: 8, fontWeight: 700, cursor: "pointer" }}>SEND MESSAGE</button>
+
+          <div>
+            <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, color: "#fff", marginBottom: "1.5rem", fontSize: "1.3rem" }}>Message Me!</h3>
+            <form ref={formRef} onSubmit={handleSubmit}>
+              <input type="text"  name="from_name" value={formData.from_name} onChange={handleChange} placeholder="NAME :" required style={inputStyle} />
+              <input type="email" name="from_email" value={formData.from_email} onChange={handleChange} placeholder="EMAIL :" required style={inputStyle} />
+              <input type="text"  name="contact_number" value={formData.contact_number} onChange={handleChange} placeholder="CONTACT :" style={inputStyle} />
+              <textarea name="message" value={formData.message} onChange={handleChange} placeholder="MESSAGE :" required rows={5}
+                style={{ ...inputStyle, marginBottom: "1.5rem", resize: "vertical" }}
+              />
+
+              <button type="submit" disabled={status === "sending"}
+                style={{
+                  fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: "0.85rem",
+                  letterSpacing: 2, textTransform: "uppercase",
+                  padding: "0.9rem 2.5rem", border: "none", borderRadius: 8,
+                  cursor: status === "sending" ? "not-allowed" : "pointer",
+                  transition: "all 0.3s", width: "auto",
+                  background: status === "success" ? "#22c55e" : status === "error" ? "#ef4444" : "#5c6ff5",
+                  color: "#fff",
+                }}>
+                {status === "sending" ? "Sending..." : status === "success" ? "✓ Message Sent!" : status === "error" ? "✗ Failed — Try Again" : "SEND MESSAGE"}
+              </button>
             </form>
           </div>
         </div>
