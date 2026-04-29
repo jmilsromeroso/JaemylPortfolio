@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-// 1. Import EmailJS (Make sure to install via: npm install @emailjs/browser)
 import emailjs from '@emailjs/browser';
 
 // ── Configuration Data ────────────────────────────────
@@ -93,6 +92,7 @@ function useInView(threshold = 0.15) {
 // ── Components ─────────────────────────────────────────
 function Navbar({ active, setActive }) {
   const [scrolled, setScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -102,6 +102,7 @@ function Navbar({ active, setActive }) {
 
   const handleClick = (link) => {
     setActive(link);
+    setIsOpen(false);
   };
 
   return (
@@ -119,7 +120,13 @@ function Navbar({ active, setActive }) {
             JR<span style={{ color: "#5c6ff5" }}>.</span>
           </span>
         </a>
-        <div style={{ display: "flex", gap: "2rem", alignItems: "center" }} className="desktop-nav">
+
+        {/* Mobile Toggle Button */}
+        <div className="mobile-toggle" onClick={() => setIsOpen(!isOpen)} style={{ cursor: 'pointer', color: '#fff', fontSize: '1.5rem', display: 'none' }}>
+          <i className={isOpen ? "fas fa-times" : "fas fa-bars"}></i>
+        </div>
+
+        <div style={{ display: "flex", gap: "2rem", alignItems: "center" }} className={`nav-links ${isOpen ? "open" : ""}`}>
           {NAV_LINKS.map(link => (
             <a key={link} href={`#${link.toLowerCase()}`}
               onClick={() => handleClick(link)}
@@ -164,14 +171,14 @@ function Hero() {
     <section id="home" style={{
       minHeight: "100vh", background: "linear-gradient(135deg, #08081e 0%, #0d0d2b 40%, #111135 70%, #0a0a20 100%)",
       display: "flex", alignItems: "center", position: "relative", overflow: "hidden",
-      paddingTop: 62,
+      paddingTop: 80, paddingBottom: 40
     }}>
       <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(91,111,245,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(91,111,245,0.06) 1px, transparent 1px)", backgroundSize: "60px 60px", pointerEvents: "none" }} />
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 2rem", display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%", position: "relative", zIndex: 1 }}>
+      <div className="hero-container" style={{ maxWidth: 1200, margin: "0 auto", padding: "0 2rem", display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%", position: "relative", zIndex: 1 }}>
         <div style={{ flex: 1, opacity: loaded ? 1 : 0, transform: loaded ? "none" : "translateY(30px)", transition: "all 0.8s cubic-bezier(.22,.68,0,1.2)" }}>
           <p style={{ fontFamily: "'Syne', sans-serif", fontSize: "1.1rem", color: "#fff", marginBottom: "0.5rem", fontWeight: 700 }}>Hello, I'm</p>
-          <h1 style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "clamp(3.5rem,8vw,6rem)", fontWeight: 900, color: "#fff", margin: "0 0 0.5rem", lineHeight: 1 }}>Jaemyl Romeroso</h1>
-          <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(1.2rem,2.5vw,1.8rem)", color: "#fff", fontWeight: 700, margin: "0 0 1.5rem" }}>Developer & UI | UX Designer</h2>
+          <h1 style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "clamp(2.5rem,8vw,6rem)", fontWeight: 900, color: "#fff", margin: "0 0 0.5rem", lineHeight: 1 }}>Jaemyl Romeroso</h1>
+          <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(1.1rem,2.5vw,1.8rem)", color: "#fff", fontWeight: 700, margin: "0 0 1.5rem" }}>Developer & UI | UX Designer</h2>
           
           <p style={{ fontFamily: "'DM Sans', sans-serif", color: "rgba(255,255,255,0.7)", maxWidth: "450px", lineHeight: "1.6", marginBottom: "2rem", fontSize: "1rem" }}>
             Innovator at heart, transforming complex ideas into intuitive digital realities with a modern tech stack.
@@ -228,8 +235,8 @@ function Information() {
     <section id="information" ref={ref} style={{ background: "#0a0a1e", padding: "clamp(4rem,8vw,7rem) clamp(1.5rem,6vw,4rem)" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto", opacity: inView ? 1 : 0, transform: inView ? "none" : "translateY(40px)", transition: "all 0.8s ease" }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1.5fr", gap: "3rem" }} className="info-grid">
-          <div style={{ background: "#1c1f6e", borderRadius: 20, overflow: "hidden", boxShadow: "0 20px 60px rgba(60,80,220,0.2)" }}>
-            <img src="img/Image_jmil.png" alt="Detail" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <div style={{ background: "#1c1f6e", borderRadius: 20, overflow: "hidden", boxShadow: "0 20px 60px rgba(60,80,220,0.2)", height: "fit-content" }}>
+            <img src="img/Image_jmil.png" alt="Detail" style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }} />
           </div>
           <div>
             <div style={{ background: "#5c6ff5", borderRadius: "8px 8px 0 0", padding: "1rem 1.5rem" }}>
@@ -325,7 +332,6 @@ function Projects() {
 
 function Contact() {
   const [ref, inView] = useInView();
-  // ── EmailJS Integration Starts ──
   const formRef = useRef();
   const [status, setStatus] = useState("idle"); 
   const [formData, setFormData] = useState({ from_name: "", from_email: "", contact_number: "", message: "" });
@@ -361,7 +367,6 @@ function Contact() {
       setTimeout(() => setStatus("idle"), 5000);
     });
   };
-  // ── EmailJS Integration Ends ──
 
   const inputStyle = {
     background: "rgba(255,255,255,0.05)", border: "1px solid rgba(92,111,245,0.3)",
@@ -575,9 +580,68 @@ export default function App() {
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
+        /* RESPONSIVE ADDITIONS */
         @media (max-width: 768px) {
-          .desktop-nav, .hero-image { display: none !important; }
-          .info-grid, .contact-grid { grid-template-columns: 1fr !important; }
+          .mobile-toggle { display: block !important; }
+          
+          .nav-links {
+            position: fixed;
+            top: 62px;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 30, 0.98);
+            flex-direction: column;
+            padding: 2rem;
+            gap: 1.5rem !important;
+            transform: translateY(-150%);
+            transition: transform 0.4s ease;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(92, 111, 245, 0.2);
+          }
+
+          .nav-links.open {
+            transform: translateY(0);
+          }
+
+          .hero-container {
+            flex-direction: column-reverse;
+            text-align: center;
+            gap: 2rem;
+          }
+
+          .hero-image {
+            margin-bottom: 1rem;
+          }
+
+          .hero-image div {
+            width: 220px !important;
+            height: 280px !important;
+            margin: 0 auto;
+          }
+
+          .hero-socials {
+            justify-content: center;
+          }
+
+          .info-grid, .contact-grid { 
+            grid-template-columns: 1fr !important; 
+            gap: 2rem !important;
+          }
+
+          h1 { margin-bottom: 1rem !important; }
+          
+          p {
+            max-width: 100% !important;
+          }
+
+          .hire-btn {
+            width: 100%;
+            box-sizing: border-box;
+          }
+
+          .contact-grid > div:first-child {
+            text-align: center;
+          }
         }
       `}</style>
       
