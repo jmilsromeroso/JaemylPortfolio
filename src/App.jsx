@@ -19,10 +19,10 @@ const SKILLS = [
 
 const EXPERIENCE = [
   {
-    role: "Marketing Volunteer",
-    company: "Actec Caloocan",
-    year: "2019 – 2020",
-    desc: "As an IT Intern, I executed telemarketing and outreach campaigns to recruit prospective students, conducted school visitations to encourage Grade 11 enrollment, and performed comprehensive audits of student documentary records to ensure accuracy and compliance.",
+    role: "IT Intern (Technical Support & Systems Administration)",
+    company: "Liberty Investigation and Security Agency Inc.",
+    year: "January 2026 – April 2026",
+    desc: "Managed workstation maintenance, troubleshooting technical issues, and assisted in systems administration tasks.",
   },
   {
     role: "Student Assistant(S.A)",
@@ -31,10 +31,10 @@ const EXPERIENCE = [
     desc: "I provided administrative and student support by assisting faculty with the organization and auditing of student files, facilitating access to academic resources, and managing the library's circulation processes for book check-outs and returns. Additionally, I oversaw front-desk operations, including the precise monitoring and record-keeping of daily and weekly attendance logs.",
   },
   {
-    role: "IT Intern (Technical Support & Systems Administration)",
-    company: "Liberty Investigation and Security Agency Inc.",
-    year: "January 2026 – April 2026",
-    desc: "Managed workstation maintenance, troubleshooting technical issues, and assisted in systems administration tasks.",
+    role: "Marketing Volunteer",
+    company: "Actec Caloocan",
+    year: "2019 – 2020",
+    desc: "As an IT Intern, I executed telemarketing and outreach campaigns to recruit prospective students, conducted school visitations to encourage Grade 11 enrollment, and performed comprehensive audits of student documentary records to ensure accuracy and compliance.",
   },
 ];
 
