@@ -193,7 +193,7 @@ function Hero() {
           <div style={{ display: "flex", gap: "1rem" }}>
             <a href="https://www.facebook.com/LimjPitikTV" target="_blank" rel="noopener noreferrer" style={heroSocialIcon}><i className="fab fa-facebook-f"></i></a>
             <a href="https://www.instagram.com/?hl=en" target="_blank" rel="noopener noreferrer" style={heroSocialIcon}><i className="fab fa-instagram"></i></a>
-            <a href="https://m.me/LimjPitikTV" target="_blank" rel="noopener noreferrer" style={heroSocialIcon}><i className="fab fa-facebook-messenger"></i></a>
+            <a href="https://www.linkedin.com/feed/" target="_blank" rel="noopener noreferrer" style={heroSocialIcon}><i className="fab fa-linkedin"></i></a>
           </div>
         </div>
         <div className="hero-image" style={{ opacity: loaded ? 1 : 0, transition: "all 0.9s ease 0.2s" }}>
@@ -459,11 +459,8 @@ function Footer() {
             <a href="https://www.instagram.com/?hl=en" target="_blank" rel="noopener noreferrer" style={socialIconStyle} aria-label="Instagram">
               <i className="fab fa-instagram"></i>
             </a>
-            <a href="https://m.me/LimjPitikTV" target="_blank" rel="noopener noreferrer" style={socialIconStyle} aria-label="Messenger">
-              <i className="fab fa-facebook-messenger"></i>
-            </a>
-            <a href="#" style={socialIconStyle} aria-label="TikTok">
-              <i className="fab fa-tiktok"></i>
+            <a href="https://www.linkedin.com/feed/" style={socialIconStyle} aria-label="Linkedin">
+              <i className="fab fa-linkedin"></i>
             </a>
           </div>
         </div>
