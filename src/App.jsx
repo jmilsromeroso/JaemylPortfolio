@@ -393,7 +393,6 @@ function Contact() {
           <div>
             <h2 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, color: "#fff", fontSize: "2rem", marginBottom: "2rem" }}>CONTACT</h2>
             <p style={{ fontFamily: "'DM Sans', sans-serif", color: "#fff", marginBottom: "0.8rem" }}>Email: jmilromeroso@gmail.com</p>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", color: "#fff", marginBottom: "0.8rem" }}>Address: 18 Bagong Sikat, Bagong Barrio, Caloocan City</p>
             <p style={{ fontFamily: "'DM Sans', sans-serif", color: "#fff", marginBottom: "0.8rem" }}>Contact: 09150681652</p>
             
             <a href="https://drive.google.com/file/d/1RzKhUfuxsJRxwlUiMUBCdB_IHW_HUxn0/view?usp=sharing" target="_blank" rel="noopener noreferrer" style={cvButtonStyle}>
@@ -520,6 +519,7 @@ function Footer() {
         <div>
           <span style={columnTitleStyle}>Contact</span>
           <p style={linkStyle}>Email : jmilromeroso@gmail.com</p>
+          <p style={linkStyle}>Contact : 09150681652</p>
         </div>
       </div>
 
