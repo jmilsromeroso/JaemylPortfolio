@@ -336,11 +336,19 @@ function Contact() {
     e.preventDefault();
     setStatus("sending");
 
-    emailjs.sendForm(
-      "service_c6eorns",   // REPLACE WITH YOUR SERVICE ID
-      "template_238hl3h",  // REPLACE WITH YOUR TEMPLATE ID
-      formRef.current,
-      "glLkwlsKB41KqEJNE"      // REPLACE WITH YOUR PUBLIC KEY
+    emailjs.send(
+      "service_c6eorns",
+      "template_238hl3h",
+      {
+        from_name: formData.from_name,
+        from_email: formData.from_email,
+        contact_number: formData.contact_number,
+        message: formData.message,
+        name: formData.from_name,
+        email: formData.from_email,
+        contact: formData.contact_number,
+      },
+      "glLkwlsKB41KqEJNE"
     )
     .then(() => {
       setStatus("success");
