@@ -201,7 +201,7 @@ function Hero() {
           <div style={{ display: "flex", gap: "1rem" }}>
             <a href="https://www.facebook.com/LimjPitikTV" target="_blank" rel="noopener noreferrer" style={heroSocialIcon}><i className="fab fa-facebook-f"></i></a>
             <a href="https://www.instagram.com/?hl=en" target="_blank" rel="noopener noreferrer" style={heroSocialIcon}><i className="fab fa-instagram"></i></a>
-            <a href="https://www.linkedin.com/feed/" target="_blank" rel="noopener noreferrer" style={heroSocialIcon}><i className="fab fa-linkedin"></i></a>
+            <a href="https://www.linkedin.com/in/jaemyl-racso-romeroso-94470834b/" target="_blank" rel="noopener noreferrer" style={heroSocialIcon}><i className="fab fa-linkedin"></i></a>
           </div>
         </div>
         <div className="hero-image" style={{ opacity: loaded ? 1 : 0, transition: "all 0.9s ease 0.2s" }}>
