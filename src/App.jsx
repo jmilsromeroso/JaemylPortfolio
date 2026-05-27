@@ -400,7 +400,7 @@ function Contact() {
             <p style={{ fontFamily: "'DM Sans', sans-serif", color: "#fff", marginBottom: "0.8rem" }}>Email: jmilromeroso@gmail.com</p>
             <p style={{ fontFamily: "'DM Sans', sans-serif", color: "#fff", marginBottom: "0.8rem" }}>Contact: 09150681652</p>
             
-            <a href="https://drive.google.com/file/d/1RzKhUfuxsJRxwlUiMUBCdB_IHW_HUxn0/view?usp=sharing" target="_blank" rel="noopener noreferrer" style={cvButtonStyle}>
+            <a href="https://drive.google.com/file/d/1Q3jr6jdTmBjWeOL362aYZvMwmc-yep53/view?usp=sharing" target="_blank" rel="noopener noreferrer" style={cvButtonStyle}>
               VIEW CV
             </a>
           </div>
