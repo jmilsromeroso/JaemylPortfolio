@@ -652,6 +652,8 @@ function Footer() {
           <span style={{ fontFamily: "'Orbitron', sans-serif", fontWeight: 800, fontSize: "1.6rem", display: "block", marginBottom: "1.5rem", color: "#fff" }}>JR<span style={{ color: "#5c6ff5" }}>.</span></span>
           <div style={{ display: "flex", gap: "0.8rem" }}>
             <a href="https://www.facebook.com/LimjPitikTV" target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "40px", height: "40px", borderRadius: "50%", background: "rgba(255,255,255,0.05)", color: "#fff", textDecoration: "none", border: "1px solid rgba(92,111,245,0.2)" }}><i className="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/jmilsphotography/" target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "40px", height: "40px", borderRadius: "50%", background: "rgba(255,255,255,0.05)", color: "#fff", textDecoration: "none", border: "1px solid rgba(92,111,245,0.2)" }}><i className="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/in/jaemyl-racso-romeroso-94470834b/" target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "40px", height: "40px", borderRadius: "50%", background: "rgba(255,255,255,0.05)", color: "#fff", textDecoration: "none", border: "1px solid rgba(92,111,245,0.2)" }}><i className="fab fa-linkedin"></i></a>
           </div>
         </div>
         <div>
