@@ -606,7 +606,7 @@ function Contact() {
             <h2 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, color: "#fff", fontSize: "2rem", marginBottom: "2rem" }}>CONTACT</h2>
             <p style={{ fontFamily: "'DM Sans', sans-serif", color: "#fff", marginBottom: "0.8rem" }}>Email: jmilromeroso@gmail.com</p>
             <p style={{ fontFamily: "'DM Sans', sans-serif", color: "#fff", marginBottom: "0.8rem" }}>Contact: 09150681652</p>
-            <a href="https://drive.google.com/file/d/1Q3jr6jdTmBjWeOL362aYZvMwmc-yep53/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="cv-btn" style={cvButtonStyle}>
+            <a href="https://drive.google.com/drive/folders/1u6dIz5Zs5KvaFRZc1Dt0CpRpsQVwx0PE" target="_blank" rel="noopener noreferrer" className="cv-btn" style={cvButtonStyle}>
               VIEW CV
             </a>
           </div>
