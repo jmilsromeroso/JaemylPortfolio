@@ -78,31 +78,31 @@ const CERTIFICATIONS = [
     title: "Secure by Design: Cybersecurity and Data Protection in the Digital Age",
     issuer: "Issuing Organization",
     date: "2026",
-    image: "public/img/Screenshot 2026-04-22 132704.png",
+    image: "/img/Screenshot 2026-04-22 132704.png",
   },
   {
     title: "Networking Basics",
     issuer: "Issuing Organization",
     date: "2026",
-    image: "public/img/Screenshot 2026-04-22 105344.png",
+    image: "/img/Screenshot 2026-04-22 105344.png",
   },
   {
     title: "Learning Microsoft Power BI for Data Analytics and Visualization",
     issuer: "Issuing Organization",
     date: "2026",
-    image: "public/img/Screenshot 2026-04-22 131524.png",
+    image: "/img/Screenshot 2026-04-22 131524.png",
   },
   {
     title: "The No-Code Revolution: Turning Ideas Into Interactive Prototypes",
     issuer: "Issuing Organization",
     date: "2026",
-    image: "public/img/Screenshot 2026-04-22 131717.png",
+    image: "/img/Screenshot 2026-04-22 131717.png",
   },
   {
     title: "Step Into Networking: A Hands-On Introduction to Cisco Packet Tracer's Interface and Basic Functions",
     issuer: "Issuing Organization",
     date: "2026",
-    image: "public/img/Screenshot 2026-04-22 131917.png",
+    image: "/img/Screenshot 2026-04-22 131917.png",
   },
 ];
 
