@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-// 1. Import EmailJS (Make sure to install via: npm install @emailjs/browser)
 import emailjs from '@emailjs/browser';
 
 // ── Configuration Data ────────────────────────────────
@@ -25,7 +24,7 @@ const EXPERIENCE = [
     desc: "As an IT Intern, I executed telemarketing and outreach campaigns to recruit prospective students, conducted school visitations to encourage Grade 11 enrollment, and performed comprehensive audits of student documentary records to ensure accuracy and compliance.",
   },
   {
-    role: "Student Assistant(S.A)",
+    role: "Student Assistant (S.A)",
     company: "Global Reciprocal Colleges",
     year: "January 2021 – April 2025",
     desc: "I provided administrative and student support by assisting faculty with the organization and auditing of student files, facilitating access to academic resources, and managing the library's circulation processes for book check-outs and returns. Additionally, I oversaw front-desk operations, including the precise monitoring and record-keeping of daily and weekly attendance logs.",
@@ -59,7 +58,7 @@ const PROJECTS = [
     desc: "A comprehensive college portal website built with modern web technologies.",
     tags: ["HTML", "CSS", "JavaScript"],
     color: "#3b4fd8",
-    image: "img/Screenshot 2026-04-26 162527.png",
+    image: "/img/Screenshot 2026-04-26 162527.png", 
     link: "https://rce-webpage.vercel.app" 
   },
   {
@@ -67,8 +66,43 @@ const PROJECTS = [
     desc: "Redesigned version with improved UI/UX and responsive layout.",
     tags: ["React", "Node.js", "CSS"],
     color: "#1a237e",
-    image: "img/Screenshot 2026-04-27 112343.png",
+    image: "/img/Screenshot 2026-04-27 112343.png",
     link: "https://libertysecurityph.com/"
+  },
+];
+
+// Replace the "image" path for each entry with your own certificate image
+// (e.g. "/img/cert-networking.png"). Add or remove objects as needed.
+const CERTIFICATIONS = [
+  {
+    title: "Secure by Design:Cybersecurity and Data Protection in the Digital Age",
+    issuer: "Issuing Organization",
+    date: "2026",
+    image: "public/img/Screenshot 2026-04-22 132704.png",
+  },
+  {
+    title: "Networking Basics",
+    issuer: "Issuing Organization",
+    date: "2026",
+    image: "public/img/Screenshot 2026-04-22 105344.png",
+  },
+  {
+    title: "Learning Microsoft Power BI for Data Analytics and Visualization",
+    issuer: "Issuing Organization",
+    date: "2026",
+    image: "public/img/Screenshot 2026-04-22 131524.png",
+  },
+  {
+    title: "The No-Code Revolution: Turning Ideas Into Interactive Prototypes ",
+    issuer: "Issuing Organization",
+    date: "2026",
+    image: "public/img/Screenshot 2026-04-22 131717.png",
+  },
+  {
+    title: "Step Into Networking: A Hands-On Introduction to Cisco Paket Traicer's interface and Basic Functions",
+    issuer: "Issuing Organization",
+    date: "2026",
+    image: "public/img/Screenshot 2026-04-22 131917.png",
   },
 ];
 
@@ -90,6 +124,22 @@ function useInView(threshold = 0.15) {
   return [ref, inView];
 }
 
+function useCardsPerView() {
+  const [cards, setCards] = useState(3);
+  useEffect(() => {
+    const calc = () => {
+      const w = window.innerWidth;
+      if (w < 700) setCards(1);
+      else if (w < 1000) setCards(2);
+      else setCards(3);
+    };
+    calc();
+    window.addEventListener("resize", calc);
+    return () => window.removeEventListener("resize", calc);
+  }, []);
+  return cards;
+}
+
 // ── Components ─────────────────────────────────────────
 function Navbar({ active, setActive }) {
   const [scrolled, setScrolled] = useState(false);
@@ -99,10 +149,6 @@ function Navbar({ active, setActive }) {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  const handleClick = (link) => {
-    setActive(link);
-  };
 
   return (
     <nav style={{
@@ -122,7 +168,7 @@ function Navbar({ active, setActive }) {
         <div style={{ display: "flex", gap: "2rem", alignItems: "center" }} className="desktop-nav">
           {NAV_LINKS.map(link => (
             <a key={link} href={`#${link.toLowerCase()}`}
-              onClick={() => handleClick(link)}
+              onClick={() => setActive(link)}
               style={{
                 fontFamily: "'Syne', sans-serif", fontSize: "0.85rem", fontWeight: 600,
                 letterSpacing: 1.5, textTransform: "uppercase",
@@ -143,28 +189,19 @@ function Navbar({ active, setActive }) {
 function Hero() {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => { setTimeout(() => setLoaded(true), 100); }, []);
-  const profileImageUrl = "img/Image_jmil.png";
+  const profileImageUrl = "/img/Image_jmil.png";
 
   const heroSocialIcon = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "45px",
-    height: "45px",
-    borderRadius: "8px",
-    border: "1px solid rgba(255,255,255,0.2)",
-    color: "#fff",
-    textDecoration: "none",
-    fontSize: "1.2rem",
-    background: "rgba(0,0,0,0.2)",
-    transition: "0.3s ease"
+    display: "flex", alignItems: "center", justifyContent: "center",
+    width: "45px", height: "45px", borderRadius: "8px",
+    border: "1px solid rgba(255,255,255,0.2)", color: "#fff",
+    textDecoration: "none", fontSize: "1.2rem", background: "rgba(0,0,0,0.2)", transition: "0.3s ease"
   };
 
   return (
     <section id="home" style={{
       minHeight: "100vh", background: "linear-gradient(135deg, #08081e 0%, #0d0d2b 40%, #111135 70%, #0a0a20 100%)",
-      display: "flex", alignItems: "center", position: "relative", overflow: "hidden",
-      paddingTop: 62,
+      display: "flex", alignItems: "center", position: "relative", overflow: "hidden", paddingTop: 62,
     }}>
       <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(91,111,245,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(91,111,245,0.06) 1px, transparent 1px)", backgroundSize: "60px 60px", pointerEvents: "none" }} />
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 2rem", display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%", position: "relative", zIndex: 1 }}>
@@ -172,25 +209,15 @@ function Hero() {
           <p style={{ fontFamily: "'Syne', sans-serif", fontSize: "1.1rem", color: "#fff", marginBottom: "0.5rem", fontWeight: 700 }}>Hello, I'm</p>
           <h1 style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "clamp(3.5rem,8vw,6rem)", fontWeight: 900, color: "#fff", margin: "0 0 0.5rem", lineHeight: 1 }}>Jaemyl Romeroso</h1>
           <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(1.2rem,2.5vw,1.8rem)", color: "#fff", fontWeight: 700, margin: "0 0 1.5rem" }}>Developer & UI | UX Designer</h2>
-          
           <p style={{ fontFamily: "'DM Sans', sans-serif", color: "rgba(255,255,255,0.7)", maxWidth: "450px", lineHeight: "1.6", marginBottom: "2rem", fontSize: "1rem" }}>
             Innovator at heart, transforming complex ideas into intuitive digital realities with a modern tech stack.
           </p>
-
           <a href="#contact" className="hire-btn" style={{ 
-            display: "inline-block", 
-            fontFamily: "'Syne', sans-serif", 
-            fontWeight: 700, 
-            padding: "1rem 2.5rem", 
-            background: "#1c1f6e", 
-            color: "#fff", 
-            textDecoration: "none", 
-            borderRadius: "12px", 
-            border: "1px solid #3b4fd8",
-            marginBottom: "2.5rem",
-            transition: "0.3s ease" 
+            display: "inline-block", fontFamily: "'Syne', sans-serif", fontWeight: 700, 
+            padding: "1rem 2.5rem", background: "#1c1f6e", color: "#fff", 
+            textDecoration: "none", borderRadius: "12px", border: "1px solid #3b4fd8",
+            marginBottom: "2.5rem", transition: "0.3s ease" 
           }}>HIRE ME NOW!</a>
-
           <div style={{ display: "flex", gap: "1rem" }}>
             <a href="https://www.facebook.com/LimjPitikTV" target="_blank" rel="noopener noreferrer" style={heroSocialIcon}><i className="fab fa-facebook-f"></i></a>
             <a href="https://www.instagram.com/?hl=en" target="_blank" rel="noopener noreferrer" style={heroSocialIcon}><i className="fab fa-instagram"></i></a>
@@ -223,13 +250,12 @@ function Objective() {
 function Information() {
   const [tab, setTab] = useState("skills");
   const [ref, inView] = useInView();
-
   return (
     <section id="information" ref={ref} style={{ background: "#0a0a1e", padding: "clamp(4rem,8vw,7rem) clamp(1.5rem,6vw,4rem)" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto", opacity: inView ? 1 : 0, transform: inView ? "none" : "translateY(40px)", transition: "all 0.8s ease" }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1.5fr", gap: "3rem" }} className="info-grid">
           <div style={{ background: "#1c1f6e", borderRadius: 20, overflow: "hidden", boxShadow: "0 20px 60px rgba(60,80,220,0.2)" }}>
-            <img src="img/Image_jmil.png" alt="Detail" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <img src="/img/Image_jmil.png" alt="Detail" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
           <div>
             <div style={{ background: "#5c6ff5", borderRadius: "8px 8px 0 0", padding: "1rem 1.5rem" }}>
@@ -241,9 +267,7 @@ function Information() {
                   <button key={t.key} onClick={() => setTab(t.key)} style={{
                     fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "0.8rem", padding: "0.5rem 1.1rem", border: "none", borderRadius: 4, cursor: "pointer",
                     background: tab === t.key ? "#5c6ff5" : "rgba(92,111,245,0.12)", color: tab === t.key ? "#fff" : "rgba(255,255,255,0.5)", transition: "all 0.25s",
-                  }}>
-                    {t.label}
-                  </button>
+                  }}>{t.label}</button>
                 ))}
               </div>
               <div style={{ animation: "fadeIn 0.4s ease" }}>
@@ -252,35 +276,29 @@ function Information() {
                     {SKILLS.map((s, i) => (
                       <li key={i} style={{ display: "flex", gap: "0.75rem", marginBottom: "0.9rem" }}>
                         <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#5c6ff5", marginTop: 7, flexShrink: 0 }} />
-                        <div>
-                          <span style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, color: "#fff", fontSize: "0.85rem" }}>{s.label}: </span>
-                          <span style={{ fontFamily: "'DM Sans', sans-serif", color: "rgba(255,255,255,0.55)", fontSize: "0.85rem" }}>{s.detail}</span>
-                        </div>
+                        <div><span style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, color: "#fff", fontSize: "0.85rem" }}>{s.label}: </span>
+                        <span style={{ fontFamily: "'DM Sans', sans-serif", color: "rgba(255,255,255,0.55)", fontSize: "0.85rem" }}>{s.detail}</span></div>
                       </li>
                     ))}
                   </ul>
                 )}
                 {tab === "experience" && (
-                  <div>
-                    {EXPERIENCE.map((exp, i) => (
-                      <div key={i} style={{ marginBottom: "1.5rem", paddingLeft: "1rem", borderLeft: "2px solid #5c6ff5" }}>
-                        <p style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, color: "#fff", margin: "0 0 0.2rem", fontSize: "0.9rem" }}>{exp.role}</p>
-                        <p style={{ fontFamily: "'DM Sans', sans-serif", color: "#8b9fff", margin: "0 0 0.4rem", fontSize: "0.82rem" }}>{exp.company} · {exp.year}</p>
-                        <p style={{ fontFamily: "'DM Sans', sans-serif", color: "rgba(255,255,255,0.5)", margin: 0, fontSize: "0.82rem", lineHeight: 1.6 }}>{exp.desc}</p>
-                      </div>
-                    ))}
-                  </div>
+                  <div>{EXPERIENCE.map((exp, i) => (
+                    <div key={i} style={{ marginBottom: "1.5rem", paddingLeft: "1rem", borderLeft: "2px solid #5c6ff5" }}>
+                      <p style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, color: "#fff", margin: "0 0 0.2rem", fontSize: "0.9rem" }}>{exp.role}</p>
+                      <p style={{ fontFamily: "'DM Sans', sans-serif", color: "#8b9fff", margin: "0 0 0.4rem", fontSize: "0.82rem" }}>{exp.company} · {exp.year}</p>
+                      <p style={{ fontFamily: "'DM Sans', sans-serif", color: "rgba(255,255,255,0.5)", margin: 0, fontSize: "0.82rem", lineHeight: 1.6 }}>{exp.desc}</p>
+                    </div>
+                  ))}</div>
                 )}
                 {tab === "education" && (
-                  <div>
-                    {EDUCATION.map((edu, i) => (
-                      <div key={i} style={{ marginBottom: "1.5rem", paddingLeft: "1rem", borderLeft: "2px solid rgba(92,111,245,0.5)" }}>
-                        <p style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, color: "#fff", margin: "0 0 0.2rem", fontSize: "0.9rem" }}>{edu.degree}</p>
-                        <p style={{ fontFamily: "'DM Sans', sans-serif", color: "#8b9fff", margin: "0 0 0.4rem", fontSize: "0.82rem" }}>{edu.school} · {edu.year}</p>
-                        <p style={{ fontFamily: "'DM Sans', sans-serif", color: "rgba(255,255,255,0.5)", margin: 0, fontSize: "0.82rem", lineHeight: 1.6 }}>{edu.desc}</p>
-                      </div>
-                    ))}
-                  </div>
+                  <div>{EDUCATION.map((edu, i) => (
+                    <div key={i} style={{ marginBottom: "1.5rem", paddingLeft: "1rem", borderLeft: "2px solid rgba(92,111,245,0.5)" }}>
+                      <p style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, color: "#fff", margin: "0 0 0.2rem", fontSize: "0.9rem" }}>{edu.degree}</p>
+                      <p style={{ fontFamily: "'DM Sans', sans-serif", color: "#8b9fff", margin: "0 0 0.4rem", fontSize: "0.82rem" }}>{edu.school} · {edu.year}</p>
+                      <p style={{ fontFamily: "'DM Sans', sans-serif", color: "rgba(255,255,255,0.5)", margin: 0, fontSize: "0.82rem", lineHeight: 1.6 }}>{edu.desc}</p>
+                    </div>
+                  ))}</div>
                 )}
               </div>
             </div>
@@ -291,9 +309,201 @@ function Information() {
   );
 }
 
+// ── Certifications Carousel ─────────────────────────────
+function Certifications() {
+  const [ref, inView] = useInView();
+  const cardsPerView = useCardsPerView();
+  const [index, setIndex] = useState(0);
+  const [openCert, setOpenCert] = useState(null);
+  const maxIndex = Math.max(0, CERTIFICATIONS.length - cardsPerView);
+
+  useEffect(() => { setIndex(i => Math.min(i, maxIndex)); }, [maxIndex]);
+
+  useEffect(() => {
+    if (openCert === null) return;
+    const onKey = (e) => {
+      if (e.key === "Escape") setOpenCert(null);
+      if (e.key === "ArrowRight") setOpenCert(i => (i + 1) % CERTIFICATIONS.length);
+      if (e.key === "ArrowLeft") setOpenCert(i => (i - 1 + CERTIFICATIONS.length) % CERTIFICATIONS.length);
+    };
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [openCert]);
+
+  const go = (dir) => {
+    setIndex(i => {
+      const next = i + dir;
+      if (next < 0) return maxIndex;
+      if (next > maxIndex) return 0;
+      return next;
+    });
+  };
+
+  const trackPercent = (100 / cardsPerView) * index;
+
+  return (
+    <section id="certifications" ref={ref} style={{ background: "#0a0a1e", padding: "0 clamp(1.5rem,6vw,4rem) clamp(4rem,8vw,7rem)" }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto", opacity: inView ? 1 : 0, transform: inView ? "none" : "translateY(40px)", transition: "all 0.8s ease" }}>
+        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: "1.75rem", flexWrap: "wrap", gap: "1rem" }}>
+          <div>
+            <p style={{ fontFamily: "'Orbitron', sans-serif", color: "#5c6ff5", fontSize: "0.7rem", letterSpacing: 5, textTransform: "uppercase", marginBottom: "0.5rem" }}>Credentials</p>
+            <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(1.5rem,3.2vw,2.2rem)", fontWeight: 800, color: "#fff", margin: 0 }}>CERTIFICATIONS</h2>
+          </div>
+          {CERTIFICATIONS.length > cardsPerView && (
+            <div style={{ display: "flex", gap: "0.6rem" }}>
+              <button onClick={() => go(-1)} aria-label="Previous certificate" style={carouselArrowStyle}>
+                <i className="fas fa-chevron-left"></i>
+              </button>
+              <button onClick={() => go(1)} aria-label="Next certificate" style={carouselArrowStyle}>
+                <i className="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          )}
+        </div>
+
+        <div style={{ overflow: "hidden", borderRadius: 16 }}>
+          <div style={{
+            display: "flex",
+            transform: `translateX(-${trackPercent}%)`,
+            transition: "transform 0.5s cubic-bezier(.22,.68,0,1.2)",
+          }}>
+            {CERTIFICATIONS.map((cert, i) => (
+              <div key={i} style={{ flex: `0 0 ${100 / cardsPerView}%`, boxSizing: "border-box", padding: "0 0.6rem" }}>
+                <button
+                  onClick={() => setOpenCert(i)}
+                  aria-label={`View ${cert.title} certificate`}
+                  style={{
+                    background: "#13133a", borderRadius: 14, overflow: "hidden",
+                    border: "1px solid rgba(92,111,245,0.2)", height: "100%", width: "100%",
+                    boxShadow: "0 10px 30px rgba(0,0,0,0.35)", cursor: "pointer",
+                    padding: 0, textAlign: "left", display: "block", transition: "transform 0.25s, box-shadow 0.25s",
+                    fontFamily: "inherit",
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-4px)"; e.currentTarget.style.boxShadow = "0 16px 40px rgba(60,80,220,0.3)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "0 10px 30px rgba(0,0,0,0.35)"; }}
+                >
+                  <div style={{ height: 190, background: "#1c1f6e", position: "relative", overflow: "hidden" }}>
+                    <img src={cert.image} alt={cert.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    <div style={{
+                      position: "absolute", inset: 0, background: "rgba(8,8,30,0.35)", opacity: 0,
+                      display: "flex", alignItems: "center", justifyContent: "center", transition: "opacity 0.25s",
+                    }} className="cert-hover-overlay">
+                      <i className="fas fa-expand" style={{ color: "#fff", fontSize: "1.3rem" }}></i>
+                    </div>
+                  </div>
+                  <div style={{ padding: "1.1rem 1.3rem" }}>
+                    <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, color: "#fff", margin: "0 0 0.35rem", fontSize: "0.95rem" }}>{cert.title}</h3>
+                    <p style={{ fontFamily: "'DM Sans', sans-serif", color: "#8b9fff", margin: 0, fontSize: "0.8rem" }}>{cert.issuer} · {cert.date}</p>
+                  </div>
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {CERTIFICATIONS.length > cardsPerView && (
+          <div style={{ display: "flex", justifyContent: "center", gap: "0.5rem", marginTop: "1.5rem" }}>
+            {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+              <button key={i} onClick={() => setIndex(i)} aria-label={`Go to slide ${i + 1}`} style={{
+                width: index === i ? 22 : 8, height: 8, borderRadius: 4, border: "none", cursor: "pointer",
+                background: index === i ? "#5c6ff5" : "rgba(92,111,245,0.25)", transition: "all 0.3s ease", padding: 0,
+              }} />
+            ))}
+          </div>
+        )}
+      </div>
+
+      {openCert !== null && (
+        <div
+          onClick={() => setOpenCert(null)}
+          style={{
+            position: "fixed", inset: 0, zIndex: 1000, background: "rgba(5,5,18,0.9)",
+            backdropFilter: "blur(6px)", display: "flex", alignItems: "center", justifyContent: "center",
+            padding: "clamp(1rem,4vw,3rem)", animation: "fadeInModal 0.25s ease",
+          }}
+        >
+          <button
+            onClick={() => setOpenCert(null)}
+            aria-label="Close"
+            style={{
+              position: "absolute", top: "clamp(1rem,3vw,2rem)", right: "clamp(1rem,3vw,2rem)",
+              width: 44, height: 44, borderRadius: "50%", border: "1px solid rgba(255,255,255,0.25)",
+              background: "rgba(255,255,255,0.06)", color: "#fff", fontSize: "1.1rem", cursor: "pointer",
+              display: "flex", alignItems: "center", justifyContent: "center",
+            }}
+          >
+            <i className="fas fa-times"></i>
+          </button>
+
+          {CERTIFICATIONS.length > 1 && (
+            <>
+              <button
+                onClick={(e) => { e.stopPropagation(); setOpenCert(i => (i - 1 + CERTIFICATIONS.length) % CERTIFICATIONS.length); }}
+                aria-label="Previous certificate"
+                style={{ ...modalNavArrowStyle, left: "clamp(0.5rem,2vw,2rem)" }}
+              >
+                <i className="fas fa-chevron-left"></i>
+              </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); setOpenCert(i => (i + 1) % CERTIFICATIONS.length); }}
+                aria-label="Next certificate"
+                style={{ ...modalNavArrowStyle, right: "clamp(0.5rem,2vw,2rem)" }}
+              >
+                <i className="fas fa-chevron-right"></i>
+              </button>
+            </>
+          )}
+
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              maxWidth: "min(900px, 92vw)", maxHeight: "88vh", background: "#0e0e28",
+              borderRadius: 16, overflow: "hidden", border: "1px solid rgba(92,111,245,0.3)",
+              boxShadow: "0 30px 100px rgba(0,0,0,0.6)", display: "flex", flexDirection: "column",
+            }}
+          >
+            <div style={{ background: "#000", display: "flex", alignItems: "center", justifyContent: "center", maxHeight: "72vh", overflow: "hidden" }}>
+              <img
+                src={CERTIFICATIONS[openCert].image}
+                alt={CERTIFICATIONS[openCert].title}
+                style={{ maxWidth: "100%", maxHeight: "72vh", objectFit: "contain", display: "block" }}
+              />
+            </div>
+            <div style={{ padding: "1.25rem 1.75rem" }}>
+              <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, color: "#fff", margin: "0 0 0.3rem", fontSize: "1.15rem" }}>
+                {CERTIFICATIONS[openCert].title}
+              </h3>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", color: "#8b9fff", margin: 0, fontSize: "0.9rem" }}>
+                {CERTIFICATIONS[openCert].issuer} · {CERTIFICATIONS[openCert].date}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
+const modalNavArrowStyle = {
+  position: "absolute", top: "50%", transform: "translateY(-50%)",
+  width: 48, height: 48, borderRadius: "50%", border: "1px solid rgba(255,255,255,0.2)",
+  background: "rgba(255,255,255,0.06)", color: "#fff", fontSize: "1rem", cursor: "pointer",
+  display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1001,
+};
+
+const carouselArrowStyle = {
+  display: "flex", alignItems: "center", justifyContent: "center",
+  width: 40, height: 40, borderRadius: 8, border: "1px solid rgba(92,111,245,0.3)",
+  background: "rgba(92,111,245,0.1)", color: "#fff", cursor: "pointer", fontSize: "0.9rem",
+  transition: "background 0.25s",
+};
+
 function Projects() {
   const [ref, inView] = useInView();
-  
   return (
     <section id="project" ref={ref} style={{ background: "#0d0d26", padding: "clamp(4rem,8vw,7rem) clamp(1.5rem,6vw,4rem)" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto", opacity: inView ? 1 : 0, transform: inView ? "none" : "translateY(40px)", transition: "all 0.8s ease" }}>
@@ -307,9 +517,7 @@ function Projects() {
               <div style={{ borderRadius: 16, overflow: "hidden", background: "#13133a", boxShadow: "0 10px 40px rgba(0,0,0,0.4)", transition: "transform 0.3s, box-shadow 0.3s", cursor: "pointer", height: "100%" }}
                 onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-6px)"; e.currentTarget.style.boxShadow = "0 20px 60px rgba(60,80,220,0.3)"; }}
                 onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "0 10px 40px rgba(0,0,0,0.4)"; }}>
-                <div style={{ height: 200, background: p.color, position: "relative", overflow: "hidden" }}>
-                  <img src={p.image} alt={p.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </div>
+                <div style={{ height: 200, background: p.color, position: "relative", overflow: "hidden" }}><img src={p.image} alt={p.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></div>
                 <div style={{ padding: "1.2rem 1.5rem" }}>
                   <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, color: "#fff", margin: "0 0 0.5rem", fontSize: "1rem" }}>{p.title}</h3>
                   <p style={{ fontFamily: "'DM Sans', sans-serif", color: "rgba(255,255,255,0.5)", margin: 0, fontSize: "0.85rem", lineHeight: 1.6 }}>{p.desc}</p>
@@ -323,12 +531,16 @@ function Projects() {
   );
 }
 
+// ── CONNECTED CONTACT COMPONENT ──
 function Contact() {
   const [ref, inView] = useInView();
-  // ── EmailJS Integration Starts ──
-  const formRef = useRef();
   const [status, setStatus] = useState("idle"); 
-  const [formData, setFormData] = useState({ from_name: "", from_email: "", contact_number: "", message: "" });
+  const [formData, setFormData] = useState({ 
+    from_name: "", 
+    from_email: "", 
+    contact_number: "", 
+    message: "" 
+  });
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -336,11 +548,19 @@ function Contact() {
     e.preventDefault();
     setStatus("sending");
 
-    emailjs.sendForm(
-      "service_c6eorns",   // REPLACE WITH YOUR SERVICE ID
-      "template_238hl3h",  // REPLACE WITH YOUR TEMPLATE ID
-      formRef.current,
-      "glLkwlsKB41KqEJNE"      // REPLACE WITH YOUR PUBLIC KEY
+    // templateParams keys MUST match the {{tags}} in your EmailJS template dashboard
+    const templateParams = {
+      from_name: formData.from_name,       // Maps to {{from_name}}
+      from_email: formData.from_email,     // Maps to {{from_email}}
+      contact_number: formData.contact_number, // Maps to {{contact_number}}
+      message: formData.message,           // Maps to {{message}}
+    };
+
+    emailjs.send(
+      "service_c6eorns",   
+      "template_238hl3h",  
+      templateParams,
+      "glLkwlsKB41KqEJNE"  
     )
     .then(() => {
       setStatus("success");
@@ -353,29 +573,11 @@ function Contact() {
       setTimeout(() => setStatus("idle"), 5000);
     });
   };
-  // ── EmailJS Integration Ends ──
 
   const inputStyle = {
     background: "rgba(255,255,255,0.05)", border: "1px solid rgba(92,111,245,0.3)",
     padding: "1rem", color: "#fff", borderRadius: 8, fontFamily: "'DM Sans', sans-serif", outline: "none",
     width: "100%", marginBottom: "1rem", boxSizing: "border-box"
-  };
-
-  const cvButtonStyle = {
-    display: "inline-block",
-    marginTop: "1.5rem",
-    padding: "0.8rem 2rem",
-    background: "transparent",
-    color: "#fff",
-    fontFamily: "'Syne', sans-serif",
-    fontWeight: 700,
-    fontSize: "0.85rem",
-    textDecoration: "none",
-    borderRadius: "8px",
-    border: "2px solid #5c6ff5",
-    transition: "all 0.3s ease",
-    textAlign: "center",
-    letterSpacing: "1px"
   };
 
   return (
@@ -387,34 +589,23 @@ function Contact() {
             <p style={{ fontFamily: "'DM Sans', sans-serif", color: "#fff", marginBottom: "0.8rem" }}>Email: jmilromeroso@gmail.com</p>
             <p style={{ fontFamily: "'DM Sans', sans-serif", color: "#fff", marginBottom: "0.8rem" }}>Address: 18 Bagong Sikat, Bagong Barrio, Caloocan City</p>
             <p style={{ fontFamily: "'DM Sans', sans-serif", color: "#fff", marginBottom: "0.8rem" }}>Contact: 09150681652</p>
-            
-            <a href="https://drive.google.com/file/d/1RzKhUfuxsJRxwlUiMUBCdB_IHW_HUxn0/view?usp=sharing" target="_blank" rel="noopener noreferrer" style={cvButtonStyle}>
-              VIEW CV
-            </a>
+            <a href="https://drive.google.com/file/d/1RzKhUfuxsJRxwlUiMUBCdB_IHW_HUxn0/view?usp=sharing" target="_blank" rel="noopener noreferrer" style={{
+              display: "inline-block", marginTop: "1.5rem", padding: "0.8rem 2rem", background: "transparent", color: "#fff", 
+              fontFamily: "'Syne', sans-serif", fontWeight: 700, borderRadius: "8px", border: "2px solid #5c6ff5", textDecoration: "none"
+            }}>VIEW CV</a>
           </div>
-
           <div>
             <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, color: "#fff", marginBottom: "1.5rem", fontSize: "1.3rem" }}>Message Me!</h3>
-            <form ref={formRef} onSubmit={handleSubmit}>
-              <input type="text"  name="from_name" value={formData.from_name} onChange={handleChange} placeholder="NAME :" required style={inputStyle} />
+            <form onSubmit={handleSubmit}>
+              <input type="text" name="from_name" value={formData.from_name} onChange={handleChange} placeholder="NAME :" required style={inputStyle} />
               <input type="email" name="from_email" value={formData.from_email} onChange={handleChange} placeholder="EMAIL :" required style={inputStyle} />
-              <input type="text"  name="contact_number" value={formData.contact_number} onChange={handleChange} placeholder="CONTACT :" style={inputStyle} />
-              <textarea name="message" value={formData.message} onChange={handleChange} placeholder="MESSAGE :" required rows={5}
-                style={{ ...inputStyle, marginBottom: "1.5rem", resize: "vertical" }}
-              />
-
-              <button type="submit" disabled={status === "sending"}
-                style={{
-                  fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: "0.85rem",
-                  letterSpacing: 2, textTransform: "uppercase",
-                  padding: "0.9rem 2.5rem", border: "none", borderRadius: 8,
-                  cursor: status === "sending" ? "not-allowed" : "pointer",
-                  transition: "all 0.3s", width: "auto",
-                  background: status === "success" ? "#22c55e" : status === "error" ? "#ef4444" : "#5c6ff5",
-                  color: "#fff",
-                }}>
-                {status === "sending" ? "Sending..." : status === "success" ? "✓ Message Sent!" : status === "error" ? "✗ Failed — Try Again" : "SEND MESSAGE"}
-              </button>
+              <input type="text" name="contact_number" value={formData.contact_number} onChange={handleChange} placeholder="CONTACT :" style={inputStyle} />
+              <textarea name="message" value={formData.message} onChange={handleChange} placeholder="MESSAGE :" required rows={5} style={{ ...inputStyle, marginBottom: "1.5rem", resize: "vertical" }} />
+              <button type="submit" disabled={status === "sending"} style={{
+                fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: "0.85rem", letterSpacing: 2, textTransform: "uppercase",
+                padding: "0.9rem 2.5rem", border: "none", borderRadius: 8, cursor: status === "sending" ? "not-allowed" : "pointer",
+                transition: "all 0.3s", width: "auto", background: status === "success" ? "#22c55e" : status === "error" ? "#ef4444" : "#5c6ff5", color: "#fff",
+              }}>{status === "sending" ? "Sending..." : status === "success" ? "✓ Message Sent!" : status === "error" ? "✗ Failed — Try Again" : "SEND MESSAGE"}</button>
             </form>
           </div>
         </div>
@@ -424,160 +615,49 @@ function Contact() {
 }
 
 function Footer() {
-  const footerStyle = {
-    background: "#121212",
-    color: "#fff",
-    padding: "3rem 2rem 1.5rem",
-    fontFamily: "'DM Sans', sans-serif",
-    borderTop: "1px solid rgba(255,255,255,0.1)"
-  };
-
-  const containerStyle = {
-    maxWidth: "1100px",
-    margin: "0 auto",
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-    gap: "2.5rem",
-    marginBottom: "3rem"
-  };
-
-  const columnTitleStyle = {
-    fontFamily: "'Syne', sans-serif",
-    fontWeight: 700,
-    fontSize: "1.1rem",
-    marginBottom: "1.5rem",
-    display: "block"
-  };
-
-  const linkStyle = {
-    display: "block",
-    color: "rgba(255,255,255,0.6)",
-    textDecoration: "none",
-    marginBottom: "0.8rem",
-    fontSize: "0.9rem",
-    transition: "color 0.3s ease"
-  };
-
-  const socialIconStyle = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "40px",
-    height: "40px",
-    borderRadius: "50%",
-    background: "rgba(255,255,255,0.05)",
-    color: "#fff",
-    textDecoration: "none",
-    fontSize: "1.1rem",
-    transition: "all 0.3s ease",
-    border: "1px solid rgba(92,111,245,0.2)"
-  };
-
   return (
-    <footer style={footerStyle}>
-      <div style={containerStyle}>
+    <footer style={{ background: "#121212", color: "#fff", padding: "3rem 2rem 1.5rem", fontFamily: "'DM Sans', sans-serif", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+      <div style={{ maxWidth: "1100px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "2.5rem", marginBottom: "3rem" }}>
         <div>
-          <a href="#home" style={{ textDecoration: "none" }}>
-            <span style={{ 
-              fontFamily: "'Orbitron', sans-serif", 
-              fontWeight: 800, 
-              fontSize: "1.6rem", 
-              display: "block", 
-              marginBottom: "1.5rem",
-              color: "#fff"
-            }}>
-              JR<span style={{ color: "#5c6ff5" }}>.</span>
-            </span>
-          </a>
+          <span style={{ fontFamily: "'Orbitron', sans-serif", fontWeight: 800, fontSize: "1.6rem", display: "block", marginBottom: "1.5rem", color: "#fff" }}>JR<span style={{ color: "#5c6ff5" }}>.</span></span>
           <div style={{ display: "flex", gap: "0.8rem" }}>
-            <a href="https://www.facebook.com/LimjPitikTV" target="_blank" rel="noopener noreferrer" style={socialIconStyle} aria-label="Facebook">
-              <i className="fab fa-facebook-f"></i>
-            </a>
-            <a href="https://www.instagram.com/?hl=en" target="_blank" rel="noopener noreferrer" style={socialIconStyle} aria-label="Instagram">
-              <i className="fab fa-instagram"></i>
-            </a>
-            <a href="https://www.linkedin.com/feed/" style={socialIconStyle} aria-label="Linkedin">
-              <i className="fab fa-linkedin"></i>
-            </a>
+            <a href="https://www.facebook.com/LimjPitikTV" target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "40px", height: "40px", borderRadius: "50%", background: "rgba(255,255,255,0.05)", color: "#fff", textDecoration: "none", border: "1px solid rgba(92,111,245,0.2)" }}><i className="fab fa-facebook-f"></i></a>
           </div>
         </div>
-
         <div>
-          <span style={columnTitleStyle}>View</span>
-          {NAV_LINKS.map(link => (
-            <a key={link} href={`#${link.toLowerCase()}`} style={linkStyle}>{link}</a>
-          ))}
+          <span style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "1.1rem", marginBottom: "1.5rem", display: "block" }}>View</span>
+          {NAV_LINKS.map(link => <a key={link} href={`#${link.toLowerCase()}`} style={{ display: "block", color: "rgba(255,255,255,0.6)", textDecoration: "none", marginBottom: "0.8rem", fontSize: "0.9rem" }}>{link}</a>)}
         </div>
-
         <div>
-          <span style={columnTitleStyle}>Contact</span>
-          <p style={linkStyle}>Email : jmilromeroso@gmail.com</p>
+          <span style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "1.1rem", marginBottom: "1.5rem", display: "block" }}>Contact</span>
+          <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.9rem" }}>Email : jmilromeroso@gmail.com</p>
         </div>
       </div>
-
-      <div style={{ 
-        textAlign: "center", 
-        borderTop: "1px solid rgba(255,255,255,0.05)", 
-        paddingTop: "1.5rem",
-        fontSize: "0.85rem",
-        color: "rgba(255,255,255,0.4)"
-      }}>
-        © Jaemyl Romeroso Portfolio!
-      </div>
+      <div style={{ textAlign: "center", borderTop: "1px solid rgba(255,255,255,0.05)", paddingTop: "1.5rem", fontSize: "0.85rem", color: "rgba(255,255,255,0.4)" }}>© Jaemyl Romeroso Portfolio!</div>
     </footer>
   );
 }
 
 export default function App() {
   const [active, setActive] = useState("Home");
-
   return (
     <>
-      <link 
-        rel="stylesheet" 
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" 
-      />
-      
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap');
-        
         body { margin: 0; background: #08081e; overflow-x: hidden; }
         html { scroll-behavior: smooth; }
-        
-        .hire-btn:hover {
-          background: #3b4fd8 !important;
-          transform: translateY(-3px);
-          box-shadow: 0 10px 20px rgba(59, 79, 216, 0.3);
-        }
-
-        .cv-btn:hover {
-          background: #5c6ff5 !important;
-          box-shadow: 0 5px 15px rgba(92, 111, 245, 0.4);
-          transform: translateY(-2px);
-        }
-
-        section#home a:hover {
-          background: #fff !important;
-          color: #08081e !important;
-          border-color: #fff !important;
-        }
-
-        .fab:hover { color: #5c6ff5; }
-        footer a:hover { color: #8b9fff !important; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        @media (max-width: 768px) {
-          .desktop-nav, .hero-image { display: none !important; }
-          .info-grid, .contact-grid { grid-template-columns: 1fr !important; }
-        }
+        .hire-btn:hover { background: #3b4fd8 !important; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(59, 79, 216, 0.3); }
+        @media (max-width: 768px) { .desktop-nav, .hero-image { display: none !important; } .info-grid, .contact-grid { grid-template-columns: 1fr !important; } }
+        @keyframes fadeInModal { from { opacity: 0; } to { opacity: 1; } }
+        button:hover .cert-hover-overlay { opacity: 1 !important; }
       `}</style>
-      
       <Navbar active={active} setActive={setActive} />
       <main>
         <Hero />
         <Objective />
         <Information />
+        <Certifications />
         <Projects />
         <Contact />
       </main>
