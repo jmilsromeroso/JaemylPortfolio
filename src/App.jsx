@@ -18,10 +18,10 @@ const SKILLS = [
 
 const EXPERIENCE = [
   {
-    role: "Marketing Volunteer",
-    company: "Actec Caloocan",
-    year: "2019 – 2020",
-    desc: "As an IT Intern, I executed telemarketing and outreach campaigns to recruit prospective students, conducted school visitations to encourage Grade 11 enrollment, and performed comprehensive audits of student documentary records to ensure accuracy and compliance.",
+    role: "IT Intern (Technical Support & Systems Administration)",
+    company: "Liberty Investigation and Security Agency Inc.",
+    year: "January 2026 – April 2026",
+    desc: "Managed workstation maintenance, troubleshooting technical issues, and assisted in systems administration tasks.",
   },
   {
     role: "Student Assistant (S.A)",
@@ -30,10 +30,10 @@ const EXPERIENCE = [
     desc: "I provided administrative and student support by assisting faculty with the organization and auditing of student files, facilitating access to academic resources, and managing the library's circulation processes for book check-outs and returns. Additionally, I oversaw front-desk operations, including the precise monitoring and record-keeping of daily and weekly attendance logs.",
   },
   {
-    role: "IT Intern (Technical Support & Systems Administration)",
-    company: "Liberty Investigation and Security Agency Inc.",
-    year: "January 2026 – April 2026",
-    desc: "Managed workstation maintenance, troubleshooting technical issues, and assisted in systems administration tasks.",
+    role: "Marketing Volunteer",
+    company: "Actec Caloocan",
+    year: "2019 – 2020",
+    desc: "As an IT Intern, I executed telemarketing and outreach campaigns to recruit prospective students, conducted school visitations to encourage Grade 11 enrollment, and performed comprehensive audits of student documentary records to ensure accuracy and compliance.",
   },
 ];
 
@@ -58,8 +58,8 @@ const PROJECTS = [
     desc: "A comprehensive college portal website built with modern web technologies.",
     tags: ["HTML", "CSS", "JavaScript"],
     color: "#3b4fd8",
-    image: "/img/Screenshot 2026-04-26 162527.png", 
-    link: "https://rce-webpage.vercel.app" 
+    image: "/img/Screenshot 2026-04-26 162527.png",
+    link: "https://rce-webpage.vercel.app"
   },
   {
     title: "Liberty Website",
@@ -75,7 +75,7 @@ const PROJECTS = [
 // (e.g. "/img/cert-networking.png"). Add or remove objects as needed.
 const CERTIFICATIONS = [
   {
-    title: "Secure by Design:Cybersecurity and Data Protection in the Digital Age",
+    title: "Secure by Design: Cybersecurity and Data Protection in the Digital Age",
     issuer: "Issuing Organization",
     date: "2026",
     image: "public/img/Screenshot 2026-04-22 132704.png",
@@ -93,13 +93,13 @@ const CERTIFICATIONS = [
     image: "public/img/Screenshot 2026-04-22 131524.png",
   },
   {
-    title: "The No-Code Revolution: Turning Ideas Into Interactive Prototypes ",
+    title: "The No-Code Revolution: Turning Ideas Into Interactive Prototypes",
     issuer: "Issuing Organization",
     date: "2026",
     image: "public/img/Screenshot 2026-04-22 131717.png",
   },
   {
-    title: "Step Into Networking: A Hands-On Introduction to Cisco Paket Traicer's interface and Basic Functions",
+    title: "Step Into Networking: A Hands-On Introduction to Cisco Packet Tracer's Interface and Basic Functions",
     issuer: "Issuing Organization",
     date: "2026",
     image: "public/img/Screenshot 2026-04-22 131917.png",
@@ -143,12 +143,18 @@ function useCardsPerView() {
 // ── Components ─────────────────────────────────────────
 function Navbar({ active, setActive }) {
   const [scrolled, setScrolled] = useState(false);
-  
+  const [isOpen, setIsOpen] = useState(false);
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const handleClick = (link) => {
+    setActive(link);
+    setIsOpen(false);
+  };
 
   return (
     <nav style={{
@@ -160,15 +166,21 @@ function Navbar({ active, setActive }) {
       padding: "0 clamp(1rem,5vw,3rem)",
     }}>
       <div style={{ maxWidth: 1100, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 62 }}>
-        <a href="#home" onClick={() => setActive("Home")} style={{ textDecoration: "none" }}>
+        <a href="#home" onClick={() => handleClick("Home")} style={{ textDecoration: "none" }}>
           <span style={{ fontFamily: "'Orbitron', sans-serif", fontWeight: 800, fontSize: "1.15rem", color: "#fff", letterSpacing: 2 }}>
             JR<span style={{ color: "#5c6ff5" }}>.</span>
           </span>
         </a>
-        <div style={{ display: "flex", gap: "2rem", alignItems: "center" }} className="desktop-nav">
+
+        {/* Mobile Toggle Button */}
+        <div className="mobile-toggle" onClick={() => setIsOpen(!isOpen)} style={{ cursor: 'pointer', color: '#fff', fontSize: '1.5rem', display: 'none' }}>
+          <i className={isOpen ? "fas fa-times" : "fas fa-bars"}></i>
+        </div>
+
+        <div style={{ display: "flex", gap: "2rem", alignItems: "center" }} className={`nav-links ${isOpen ? "open" : ""}`}>
           {NAV_LINKS.map(link => (
             <a key={link} href={`#${link.toLowerCase()}`}
-              onClick={() => setActive(link)}
+              onClick={() => handleClick(link)}
               style={{
                 fontFamily: "'Syne', sans-serif", fontSize: "0.85rem", fontWeight: 600,
                 letterSpacing: 1.5, textTransform: "uppercase",
@@ -201,27 +213,28 @@ function Hero() {
   return (
     <section id="home" style={{
       minHeight: "100vh", background: "linear-gradient(135deg, #08081e 0%, #0d0d2b 40%, #111135 70%, #0a0a20 100%)",
-      display: "flex", alignItems: "center", position: "relative", overflow: "hidden", paddingTop: 62,
+      display: "flex", alignItems: "center", position: "relative", overflow: "hidden",
+      paddingTop: 80, paddingBottom: 40
     }}>
       <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(91,111,245,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(91,111,245,0.06) 1px, transparent 1px)", backgroundSize: "60px 60px", pointerEvents: "none" }} />
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 2rem", display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%", position: "relative", zIndex: 1 }}>
+      <div className="hero-container" style={{ maxWidth: 1200, margin: "0 auto", padding: "0 2rem", display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%", position: "relative", zIndex: 1 }}>
         <div style={{ flex: 1, opacity: loaded ? 1 : 0, transform: loaded ? "none" : "translateY(30px)", transition: "all 0.8s cubic-bezier(.22,.68,0,1.2)" }}>
           <p style={{ fontFamily: "'Syne', sans-serif", fontSize: "1.1rem", color: "#fff", marginBottom: "0.5rem", fontWeight: 700 }}>Hello, I'm</p>
-          <h1 style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "clamp(3.5rem,8vw,6rem)", fontWeight: 900, color: "#fff", margin: "0 0 0.5rem", lineHeight: 1 }}>Jaemyl Romeroso</h1>
-          <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(1.2rem,2.5vw,1.8rem)", color: "#fff", fontWeight: 700, margin: "0 0 1.5rem" }}>Developer & UI | UX Designer</h2>
+          <h1 style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "clamp(2.5rem,8vw,6rem)", fontWeight: 900, color: "#fff", margin: "0 0 0.5rem", lineHeight: 1 }}>Jaemyl Romeroso</h1>
+          <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(1.1rem,2.5vw,1.8rem)", color: "#fff", fontWeight: 700, margin: "0 0 1.5rem" }}>Developer & UI | UX Designer</h2>
           <p style={{ fontFamily: "'DM Sans', sans-serif", color: "rgba(255,255,255,0.7)", maxWidth: "450px", lineHeight: "1.6", marginBottom: "2rem", fontSize: "1rem" }}>
             Innovator at heart, transforming complex ideas into intuitive digital realities with a modern tech stack.
           </p>
-          <a href="#contact" className="hire-btn" style={{ 
-            display: "inline-block", fontFamily: "'Syne', sans-serif", fontWeight: 700, 
-            padding: "1rem 2.5rem", background: "#1c1f6e", color: "#fff", 
+          <a href="#contact" className="hire-btn" style={{
+            display: "inline-block", fontFamily: "'Syne', sans-serif", fontWeight: 700,
+            padding: "1rem 2.5rem", background: "#1c1f6e", color: "#fff",
             textDecoration: "none", borderRadius: "12px", border: "1px solid #3b4fd8",
-            marginBottom: "2.5rem", transition: "0.3s ease" 
+            marginBottom: "2.5rem", transition: "0.3s ease"
           }}>HIRE ME NOW!</a>
-          <div style={{ display: "flex", gap: "1rem" }}>
+          <div className="hero-socials" style={{ display: "flex", gap: "1rem" }}>
             <a href="https://www.facebook.com/LimjPitikTV" target="_blank" rel="noopener noreferrer" style={heroSocialIcon}><i className="fab fa-facebook-f"></i></a>
-            <a href="https://www.instagram.com/?hl=en" target="_blank" rel="noopener noreferrer" style={heroSocialIcon}><i className="fab fa-instagram"></i></a>
-            <a href="https://www.linkedin.com/feed/" target="_blank" rel="noopener noreferrer" style={heroSocialIcon}><i className="fab fa-linkedin"></i></a>
+            <a href="https://www.instagram.com/jmilsphotography/" target="_blank" rel="noopener noreferrer" style={heroSocialIcon}><i className="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/in/jaemyl-racso-romeroso-94470834b/" target="_blank" rel="noopener noreferrer" style={heroSocialIcon}><i className="fab fa-linkedin"></i></a>
           </div>
         </div>
         <div className="hero-image" style={{ opacity: loaded ? 1 : 0, transition: "all 0.9s ease 0.2s" }}>
@@ -254,8 +267,8 @@ function Information() {
     <section id="information" ref={ref} style={{ background: "#0a0a1e", padding: "clamp(4rem,8vw,7rem) clamp(1.5rem,6vw,4rem)" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto", opacity: inView ? 1 : 0, transform: inView ? "none" : "translateY(40px)", transition: "all 0.8s ease" }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1.5fr", gap: "3rem" }} className="info-grid">
-          <div style={{ background: "#1c1f6e", borderRadius: 20, overflow: "hidden", boxShadow: "0 20px 60px rgba(60,80,220,0.2)" }}>
-            <img src="/img/Image_jmil.png" alt="Detail" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <div style={{ background: "#1c1f6e", borderRadius: 20, overflow: "hidden", boxShadow: "0 20px 60px rgba(60,80,220,0.2)", height: "fit-content" }}>
+            <img src="/img/Image_jmil.png" alt="Detail" style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }} />
           </div>
           <div>
             <div style={{ background: "#5c6ff5", borderRadius: "8px 8px 0 0", padding: "1rem 1.5rem" }}>
@@ -534,12 +547,12 @@ function Projects() {
 // ── CONNECTED CONTACT COMPONENT ──
 function Contact() {
   const [ref, inView] = useInView();
-  const [status, setStatus] = useState("idle"); 
-  const [formData, setFormData] = useState({ 
-    from_name: "", 
-    from_email: "", 
-    contact_number: "", 
-    message: "" 
+  const [status, setStatus] = useState("idle");
+  const [formData, setFormData] = useState({
+    from_name: "",
+    from_email: "",
+    contact_number: "",
+    message: ""
   });
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -548,19 +561,24 @@ function Contact() {
     e.preventDefault();
     setStatus("sending");
 
-    // templateParams keys MUST match the {{tags}} in your EmailJS template dashboard
+    // templateParams keys MUST match the {{tags}} in your EmailJS template dashboard.
+    // Extra aliases (name/email/contact) are included in case the template uses
+    // shorter tag names — harmless if unused.
     const templateParams = {
-      from_name: formData.from_name,       // Maps to {{from_name}}
-      from_email: formData.from_email,     // Maps to {{from_email}}
-      contact_number: formData.contact_number, // Maps to {{contact_number}}
-      message: formData.message,           // Maps to {{message}}
+      from_name: formData.from_name,
+      from_email: formData.from_email,
+      contact_number: formData.contact_number,
+      message: formData.message,
+      name: formData.from_name,
+      email: formData.from_email,
+      contact: formData.contact_number,
     };
 
     emailjs.send(
-      "service_c6eorns",   
-      "template_238hl3h",  
+      "service_c6eorns",
+      "template_238hl3h",
       templateParams,
-      "glLkwlsKB41KqEJNE"  
+      "glLkwlsKB41KqEJNE"
     )
     .then(() => {
       setStatus("success");
@@ -587,12 +605,10 @@ function Contact() {
           <div>
             <h2 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, color: "#fff", fontSize: "2rem", marginBottom: "2rem" }}>CONTACT</h2>
             <p style={{ fontFamily: "'DM Sans', sans-serif", color: "#fff", marginBottom: "0.8rem" }}>Email: jmilromeroso@gmail.com</p>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", color: "#fff", marginBottom: "0.8rem" }}>Address: 18 Bagong Sikat, Bagong Barrio, Caloocan City</p>
             <p style={{ fontFamily: "'DM Sans', sans-serif", color: "#fff", marginBottom: "0.8rem" }}>Contact: 09150681652</p>
-            <a href="https://drive.google.com/file/d/1RzKhUfuxsJRxwlUiMUBCdB_IHW_HUxn0/view?usp=sharing" target="_blank" rel="noopener noreferrer" style={{
-              display: "inline-block", marginTop: "1.5rem", padding: "0.8rem 2rem", background: "transparent", color: "#fff", 
-              fontFamily: "'Syne', sans-serif", fontWeight: 700, borderRadius: "8px", border: "2px solid #5c6ff5", textDecoration: "none"
-            }}>VIEW CV</a>
+            <a href="https://drive.google.com/file/d/1Q3jr6jdTmBjWeOL362aYZvMwmc-yep53/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="cv-btn" style={cvButtonStyle}>
+              VIEW CV
+            </a>
           </div>
           <div>
             <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, color: "#fff", marginBottom: "1.5rem", fontSize: "1.3rem" }}>Message Me!</h3>
@@ -614,6 +630,20 @@ function Contact() {
   );
 }
 
+const cvButtonStyle = {
+  display: "inline-block", marginTop: "1.5rem", padding: "0.8rem 2rem", background: "transparent", color: "#fff",
+  fontFamily: "'Syne', sans-serif", fontWeight: 700, borderRadius: "8px", border: "2px solid #5c6ff5", textDecoration: "none",
+  transition: "all 0.25s",
+};
+
+const columnTitleStyle = {
+  fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "1.1rem", marginBottom: "1.5rem", display: "block",
+};
+
+const linkStyle = {
+  display: "block", color: "rgba(255,255,255,0.6)", textDecoration: "none", marginBottom: "0.8rem", fontSize: "0.9rem",
+};
+
 function Footer() {
   return (
     <footer style={{ background: "#121212", color: "#fff", padding: "3rem 2rem 1.5rem", fontFamily: "'DM Sans', sans-serif", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
@@ -625,12 +655,13 @@ function Footer() {
           </div>
         </div>
         <div>
-          <span style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "1.1rem", marginBottom: "1.5rem", display: "block" }}>View</span>
-          {NAV_LINKS.map(link => <a key={link} href={`#${link.toLowerCase()}`} style={{ display: "block", color: "rgba(255,255,255,0.6)", textDecoration: "none", marginBottom: "0.8rem", fontSize: "0.9rem" }}>{link}</a>)}
+          <span style={columnTitleStyle}>View</span>
+          {NAV_LINKS.map(link => <a key={link} href={`#${link.toLowerCase()}`} style={linkStyle}>{link}</a>)}
         </div>
         <div>
-          <span style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "1.1rem", marginBottom: "1.5rem", display: "block" }}>Contact</span>
-          <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.9rem" }}>Email : jmilromeroso@gmail.com</p>
+          <span style={columnTitleStyle}>Contact</span>
+          <p style={linkStyle}>Email : jmilromeroso@gmail.com</p>
+          <p style={linkStyle}>Contact : 09150681652</p>
         </div>
       </div>
       <div style={{ textAlign: "center", borderTop: "1px solid rgba(255,255,255,0.05)", paddingTop: "1.5rem", fontSize: "0.85rem", color: "rgba(255,255,255,0.4)" }}>© Jaemyl Romeroso Portfolio!</div>
@@ -647,10 +678,95 @@ export default function App() {
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap');
         body { margin: 0; background: #08081e; overflow-x: hidden; }
         html { scroll-behavior: smooth; }
-        .hire-btn:hover { background: #3b4fd8 !important; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(59, 79, 216, 0.3); }
-        @media (max-width: 768px) { .desktop-nav, .hero-image { display: none !important; } .info-grid, .contact-grid { grid-template-columns: 1fr !important; } }
+
+        .hire-btn:hover {
+          background: #3b4fd8 !important;
+          transform: translateY(-3px);
+          box-shadow: 0 10px 20px rgba(59, 79, 216, 0.3);
+        }
+
+        .cv-btn:hover {
+          background: #5c6ff5 !important;
+          box-shadow: 0 5px 15px rgba(92, 111, 245, 0.4);
+          transform: translateY(-2px);
+        }
+
+        section#home a:hover {
+          background: #fff !important;
+          color: #08081e !important;
+          border-color: #fff !important;
+        }
+
+        .fab:hover { color: #5c6ff5; }
+        footer a:hover { color: #8b9fff !important; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeInModal { from { opacity: 0; } to { opacity: 1; } }
         button:hover .cert-hover-overlay { opacity: 1 !important; }
+
+        /* RESPONSIVE ADDITIONS */
+        @media (max-width: 768px) {
+          .mobile-toggle { display: block !important; }
+
+          .nav-links {
+            position: fixed;
+            top: 62px;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 30, 0.98);
+            flex-direction: column;
+            padding: 2rem;
+            gap: 1.5rem !important;
+            transform: translateY(-150%);
+            transition: transform 0.4s ease;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(92, 111, 245, 0.2);
+          }
+
+          .nav-links.open {
+            transform: translateY(0);
+          }
+
+          .hero-container {
+            flex-direction: column-reverse;
+            text-align: center;
+            gap: 2rem;
+          }
+
+          .hero-image {
+            margin-bottom: 1rem;
+          }
+
+          .hero-image div {
+            width: 220px !important;
+            height: 280px !important;
+            margin: 0 auto;
+          }
+
+          .hero-socials {
+            justify-content: center;
+          }
+
+          .info-grid, .contact-grid {
+            grid-template-columns: 1fr !important;
+            gap: 2rem !important;
+          }
+
+          h1 { margin-bottom: 1rem !important; }
+
+          p {
+            max-width: 100% !important;
+          }
+
+          .hire-btn {
+            width: 100%;
+            box-sizing: border-box;
+          }
+
+          .contact-grid > div:first-child {
+            text-align: center;
+          }
+        }
       `}</style>
       <Navbar active={active} setActive={setActive} />
       <main>
