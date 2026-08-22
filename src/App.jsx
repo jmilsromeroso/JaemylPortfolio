@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import emailjs from '@emailjs/browser';
+import LiquidEther from './LiquidEther';
 
 // ── Configuration Data ────────────────────────────────
 const NAV_LINKS = ["Home", "Objective", "Information", "Project", "Contact"];
@@ -216,8 +217,29 @@ function Hero() {
       display: "flex", alignItems: "center", position: "relative", overflow: "hidden",
       paddingTop: 80, paddingBottom: 40
     }}>
-      <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(91,111,245,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(91,111,245,0.06) 1px, transparent 1px)", backgroundSize: "60px 60px", pointerEvents: "none" }} />
-      <div className="hero-container" style={{ maxWidth: 1200, margin: "0 auto", padding: "0 2rem", display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%", position: "relative", zIndex: 1 }}>
+      {/* Liquid Ether ambient background — sits behind the grid overlay and hero content */}
+      <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+        <LiquidEther
+          colors={["#5227FF", "#FF9FFC", "#B497CF"]}
+          mouseForce={20}
+          cursorSize={100}
+          isViscous
+          viscous={30}
+          iterationsViscous={32}
+          iterationsPoisson={32}
+          resolution={0.5}
+          isBounce={false}
+          autoDemo
+          autoSpeed={0.5}
+          autoIntensity={2.2}
+          takeoverDuration={0.25}
+          autoResumeDelay={3000}
+          autoRampDuration={0.6}
+          style={{ width: "100%", height: "100%", opacity: 0.55 }}
+        />
+      </div>
+      <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(91,111,245,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(91,111,245,0.06) 1px, transparent 1px)", backgroundSize: "60px 60px", pointerEvents: "none", zIndex: 1 }} />
+      <div className="hero-container" style={{ maxWidth: 1200, margin: "0 auto", padding: "0 2rem", display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%", position: "relative", zIndex: 2 }}>
         <div style={{ flex: 1, opacity: loaded ? 1 : 0, transform: loaded ? "none" : "translateY(30px)", transition: "all 0.8s cubic-bezier(.22,.68,0,1.2)" }}>
           <p style={{ fontFamily: "'Syne', sans-serif", fontSize: "1.1rem", color: "#fff", marginBottom: "0.5rem", fontWeight: 700 }}>Hello, I'm</p>
           <h1 style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "clamp(2.5rem,8vw,6rem)", fontWeight: 900, color: "#fff", margin: "0 0 0.5rem", lineHeight: 1 }}>Jaemyl Romeroso</h1>
@@ -237,8 +259,24 @@ function Hero() {
             <a href="https://www.linkedin.com/in/jaemyl-racso-romeroso-94470834b/" target="_blank" rel="noopener noreferrer" style={heroSocialIcon}><i className="fab fa-linkedin"></i></a>
           </div>
         </div>
-        <div className="hero-image" style={{ opacity: loaded ? 1 : 0, transition: "all 0.9s ease 0.2s" }}>
-          <div style={{ width: "clamp(220px,25vw,340px)", height: "clamp(280px,32vw,430px)", borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%", backgroundImage: `url(${profileImageUrl})`, backgroundSize: "cover", backgroundColor: "#1c1f6e", boxShadow: "0 30px 80px rgba(60,80,220,0.35)" }} />
+        <div className="hero-image" style={{ opacity: loaded ? 1 : 0, transition: "all 0.9s ease 0.2s", position: "relative" }}>
+          <div className="photo-frame" style={{
+            width: "clamp(240px,26vw,360px)", height: "clamp(300px,32vw,440px)",
+            borderRadius: 28, padding: 6,
+            background: "linear-gradient(160deg, rgba(92,111,245,0.55), rgba(59,79,216,0.1))",
+            boxShadow: "0 30px 80px rgba(60,80,220,0.35)", position: "relative",
+          }}>
+            <div style={{
+              width: "100%", height: "100%", borderRadius: 22, overflow: "hidden",
+              backgroundImage: `url(${profileImageUrl})`, backgroundSize: "cover", backgroundPosition: "center top",
+              backgroundColor: "#1c1f6e", border: "1px solid rgba(255,255,255,0.1)",
+            }} />
+            {/* Corner brackets — viewfinder-style accent tying into the tech/dev theme */}
+            <span style={{ position: "absolute", top: -8, left: -8, width: 26, height: 26, borderTop: "2px solid #8b9fff", borderLeft: "2px solid #8b9fff", borderRadius: "8px 0 0 0" }} />
+            <span style={{ position: "absolute", top: -8, right: -8, width: 26, height: 26, borderTop: "2px solid #8b9fff", borderRight: "2px solid #8b9fff", borderRadius: "0 8px 0 0" }} />
+            <span style={{ position: "absolute", bottom: -8, left: -8, width: 26, height: 26, borderBottom: "2px solid #8b9fff", borderLeft: "2px solid #8b9fff", borderRadius: "0 0 0 8px" }} />
+            <span style={{ position: "absolute", bottom: -8, right: -8, width: 26, height: 26, borderBottom: "2px solid #8b9fff", borderRight: "2px solid #8b9fff", borderRadius: "0 0 8px 0" }} />
+          </div>
         </div>
       </div>
     </section>
@@ -739,7 +777,7 @@ export default function App() {
             margin-bottom: 1rem;
           }
 
-          .hero-image div {
+          .photo-frame {
             width: 220px !important;
             height: 280px !important;
             margin: 0 auto;
