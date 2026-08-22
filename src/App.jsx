@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import emailjs from '@emailjs/browser';
-import LiquidEther from './LiquidEther';
+import ShapeGrid from './ShapeGrid';
 
 // ── Configuration Data ────────────────────────────────
 const NAV_LINKS = ["Home", "Objective", "Information", "Project", "Contact"];
@@ -213,32 +213,10 @@ function Hero() {
 
   return (
     <section id="home" style={{
-      minHeight: "100vh", background: "linear-gradient(135deg, #08081e 0%, #0d0d2b 40%, #111135 70%, #0a0a20 100%)",
+      minHeight: "100vh", background: "transparent",
       display: "flex", alignItems: "center", position: "relative", overflow: "hidden",
       paddingTop: 80, paddingBottom: 40
     }}>
-      {/* Liquid Ether ambient background — sits behind the grid overlay and hero content */}
-      <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
-        <LiquidEther
-          colors={["#5227FF", "#FF9FFC", "#B497CF"]}
-          mouseForce={20}
-          cursorSize={100}
-          isViscous
-          viscous={30}
-          iterationsViscous={32}
-          iterationsPoisson={32}
-          resolution={0.5}
-          isBounce={false}
-          autoDemo
-          autoSpeed={0.5}
-          autoIntensity={2.2}
-          takeoverDuration={0.25}
-          autoResumeDelay={3000}
-          autoRampDuration={0.6}
-          style={{ width: "100%", height: "100%", opacity: 0.55 }}
-        />
-      </div>
-      <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(91,111,245,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(91,111,245,0.06) 1px, transparent 1px)", backgroundSize: "60px 60px", pointerEvents: "none", zIndex: 1 }} />
       <div className="hero-container" style={{ maxWidth: 1200, margin: "0 auto", padding: "0 2rem", display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%", position: "relative", zIndex: 2 }}>
         <div style={{ flex: 1, opacity: loaded ? 1 : 0, transform: loaded ? "none" : "translateY(30px)", transition: "all 0.8s cubic-bezier(.22,.68,0,1.2)" }}>
           <p style={{ fontFamily: "'Syne', sans-serif", fontSize: "1.1rem", color: "#fff", marginBottom: "0.5rem", fontWeight: 700 }}>Hello, I'm</p>
@@ -286,7 +264,7 @@ function Hero() {
 function Objective() {
   const [ref, inView] = useInView();
   return (
-    <section id="objective" ref={ref} style={{ background: "#0e0e28", padding: "clamp(4rem,8vw,7rem) clamp(1.5rem,6vw,4rem)" }}>
+    <section id="objective" ref={ref} style={{ background: "rgba(14,14,40,0.82)", padding: "clamp(4rem,8vw,7rem) clamp(1.5rem,6vw,4rem)" }}>
       <div style={{ maxWidth: 900, margin: "0 auto", opacity: inView ? 1 : 0, transform: inView ? "none" : "translateY(40px)", transition: "all 0.8s ease" }}>
         <p style={{ fontFamily: "'Orbitron', sans-serif", color: "#5c6ff5", fontSize: "0.7rem", letterSpacing: 5, textTransform: "uppercase", marginBottom: "0.75rem" }}>Purpose</p>
         <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(1.8rem,4vw,2.8rem)", fontWeight: 800, color: "#fff", marginBottom: "2rem" }}>OBJECTIVE</h2>
@@ -302,7 +280,7 @@ function Information() {
   const [tab, setTab] = useState("skills");
   const [ref, inView] = useInView();
   return (
-    <section id="information" ref={ref} style={{ background: "#0a0a1e", padding: "clamp(4rem,8vw,7rem) clamp(1.5rem,6vw,4rem)" }}>
+    <section id="information" ref={ref} style={{ background: "rgba(10,10,30,0.82)", padding: "clamp(4rem,8vw,7rem) clamp(1.5rem,6vw,4rem)" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto", opacity: inView ? 1 : 0, transform: inView ? "none" : "translateY(40px)", transition: "all 0.8s ease" }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1.5fr", gap: "3rem" }} className="info-grid">
           <div style={{ background: "#1c1f6e", borderRadius: 20, overflow: "hidden", boxShadow: "0 20px 60px rgba(60,80,220,0.2)", height: "fit-content" }}>
@@ -397,7 +375,7 @@ function Certifications() {
   const trackPercent = (100 / cardsPerView) * index;
 
   return (
-    <section id="certifications" ref={ref} style={{ background: "#0a0a1e", padding: "0 clamp(1.5rem,6vw,4rem) clamp(4rem,8vw,7rem)" }}>
+    <section id="certifications" ref={ref} style={{ background: "rgba(10,10,30,0.82)", padding: "0 clamp(1.5rem,6vw,4rem) clamp(4rem,8vw,7rem)" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto", opacity: inView ? 1 : 0, transform: inView ? "none" : "translateY(40px)", transition: "all 0.8s ease" }}>
         <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: "1.75rem", flexWrap: "wrap", gap: "1rem" }}>
           <div>
@@ -556,7 +534,7 @@ const carouselArrowStyle = {
 function Projects() {
   const [ref, inView] = useInView();
   return (
-    <section id="project" ref={ref} style={{ background: "#0d0d26", padding: "clamp(4rem,8vw,7rem) clamp(1.5rem,6vw,4rem)" }}>
+    <section id="project" ref={ref} style={{ background: "rgba(13,13,38,0.82)", padding: "clamp(4rem,8vw,7rem) clamp(1.5rem,6vw,4rem)" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto", opacity: inView ? 1 : 0, transform: inView ? "none" : "translateY(40px)", transition: "all 0.8s ease" }}>
         <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
           <p style={{ fontFamily: "'Orbitron', sans-serif", color: "#5c6ff5", fontSize: "0.7rem", letterSpacing: 5, textTransform: "uppercase", marginBottom: "0.5rem" }}>Portfolio</p>
@@ -637,7 +615,7 @@ function Contact() {
   };
 
   return (
-    <section id="contact" ref={ref} style={{ background: "#090917", padding: "clamp(4rem,8vw,7rem) clamp(1.5rem,6vw,4rem)" }}>
+    <section id="contact" ref={ref} style={{ background: "rgba(9,9,23,0.82)", padding: "clamp(4rem,8vw,7rem) clamp(1.5rem,6vw,4rem)" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto", opacity: inView ? 1 : 0, transform: inView ? "none" : "translateY(40px)", transition: "all 0.8s ease" }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1.5fr", gap: "4rem" }} className="contact-grid">
           <div>
@@ -684,7 +662,7 @@ const linkStyle = {
 
 function Footer() {
   return (
-    <footer style={{ background: "#121212", color: "#fff", padding: "3rem 2rem 1.5rem", fontFamily: "'DM Sans', sans-serif", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+    <footer style={{ background: "rgba(18,18,18,0.9)", color: "#fff", padding: "3rem 2rem 1.5rem", fontFamily: "'DM Sans', sans-serif", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
       <div style={{ maxWidth: "1100px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "2.5rem", marginBottom: "3rem" }}>
         <div>
           <span style={{ fontFamily: "'Orbitron', sans-serif", fontWeight: 800, fontSize: "1.6rem", display: "block", marginBottom: "1.5rem", color: "#fff" }}>JR<span style={{ color: "#5c6ff5" }}>.</span></span>
@@ -808,16 +786,30 @@ export default function App() {
           }
         }
       `}</style>
-      <Navbar active={active} setActive={setActive} />
-      <main>
-        <Hero />
-        <Objective />
-        <Information />
-        <Certifications />
-        <Projects />
-        <Contact />
-      </main>
-      <Footer />
+      {/* ShapeGrid — fixed, full-viewport, sits behind the entire site as the main theme background */}
+      <div style={{ position: "fixed", inset: 0, zIndex: 0, width: "100vw", height: "100vh" }}>
+        <ShapeGrid
+          speed={0.5}
+          squareSize={40}
+          direction="diagonal"
+          borderColor="#2F293A"
+          hoverFillColor="#222222"
+          shape="hexagon"
+          hoverTrailAmount={0}
+        />
+      </div>
+      <div style={{ position: "relative", zIndex: 1 }}>
+        <Navbar active={active} setActive={setActive} />
+        <main>
+          <Hero />
+          <Objective />
+          <Information />
+          <Certifications />
+          <Projects />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
     </>
   );
 }
