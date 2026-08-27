@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import emailjs from '@emailjs/browser';
-import ShapeGrid from './ShapeGrid';
+import Waves from './Waves';
 
 // ── Configuration Data ────────────────────────────────
 const NAV_LINKS = ["Home", "Objective", "Information", "Project", "Contact"];
@@ -239,7 +239,7 @@ function Hero() {
         </div>
         <div className="hero-image" style={{ opacity: loaded ? 1 : 0, transition: "all 0.9s ease 0.2s", position: "relative" }}>
           <div className="photo-frame" style={{
-            width: "clamp(240px,26vw,360px)", height: "clamp(300px,32vw,440px)",
+            width: "clamp(280px,32vw,440px)", height: "clamp(350px,38vw,540px)",
             borderRadius: 28, padding: 6,
             background: "linear-gradient(160deg, rgba(92,111,245,0.55), rgba(59,79,216,0.1))",
             boxShadow: "0 30px 80px rgba(60,80,220,0.35)", position: "relative",
@@ -247,7 +247,7 @@ function Hero() {
             <div style={{
               width: "100%", height: "100%", borderRadius: 22, overflow: "hidden",
               backgroundImage: `url(${profileImageUrl})`, backgroundSize: "cover", backgroundPosition: "center top",
-              backgroundColor: "#1c1f6e", border: "1px solid rgba(255,255,255,0.1)",
+              backgroundColor: "#1c1f6e",
             }} />
             {/* Corner brackets — viewfinder-style accent tying into the tech/dev theme */}
             <span style={{ position: "absolute", top: -8, left: -8, width: 26, height: 26, borderTop: "2px solid #8b9fff", borderLeft: "2px solid #8b9fff", borderRadius: "8px 0 0 0" }} />
@@ -756,8 +756,8 @@ export default function App() {
           }
 
           .photo-frame {
-            width: 220px !important;
-            height: 280px !important;
+            width: 260px !important;
+            height: 330px !important;
             margin: 0 auto;
           }
 
@@ -786,16 +786,22 @@ export default function App() {
           }
         }
       `}</style>
-      {/* ShapeGrid — fixed, full-viewport, sits behind the entire site as the main theme background */}
+      {/* Waves — fixed, full-viewport, sits behind the entire site as the main theme background.
+          backgroundColor is transparent so the dark #08081e body still shows through;
+          lineColor is a soft indigo/white to match the site's #5c6ff5 / #8b9fff accents. */}
       <div style={{ position: "fixed", inset: 0, zIndex: 0, width: "100vw", height: "100vh" }}>
-        <ShapeGrid
-          speed={0.5}
-          squareSize={40}
-          direction="diagonal"
-          borderColor="#2F293A"
-          hoverFillColor="#222222"
-          shape="hexagon"
-          hoverTrailAmount={0}
+        <Waves
+          lineColor="rgba(139, 159, 255, 0.35)"
+          backgroundColor="transparent"
+          waveSpeedX={0.0125}
+          waveSpeedY={0.01}
+          waveAmpX={40}
+          waveAmpY={20}
+          friction={0.9}
+          tension={0.01}
+          maxCursorMove={120}
+          xGap={12}
+          yGap={36}
         />
       </div>
       <div style={{ position: "relative", zIndex: 1 }}>
